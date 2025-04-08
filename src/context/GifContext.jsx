@@ -11,7 +11,6 @@ const GifContextProvider = ({children})=>{
     const [filter,setFilter] = useState('gifs')
     const [favorites,setFavorites] =useState([])
     
-    
     const gipfyFetch = new GiphyFetch(import.meta.env.VITE_GIPFY_KEY)
     console.log("fetchGif",gipfyFetch);
     console.log(import.meta.env.VITE_GIPFY_KEY);
