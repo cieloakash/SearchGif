@@ -12,8 +12,6 @@ const GifContextProvider = ({children})=>{
     const [favorites,setFavorites] =useState([])
     
     const gipfyFetch = new GiphyFetch(import.meta.env.VITE_GIPFY_KEY)
-    console.log("fetchGif",gipfyFetch);
-    console.log(import.meta.env.VITE_GIPFY_KEY);
 
     const addToFav =(id)=>{
         if(favorites.includes(id)){

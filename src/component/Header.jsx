@@ -20,7 +20,6 @@ const Header = () => {
         fetchCategories()
     }, [])
     
-    console.log(categories);
       
     
   return (
@@ -46,7 +45,7 @@ const Header = () => {
                     <Link to='/fav'>Fovorite GIFs</Link>
                 </div>
                 }
-                <button>
+                <button onClick={()=>setShowCategories(!showCategories)} >
                     <HiMiniBars3BottomRight className='text-sky-400 block lg:hidden' size={30}/>
                 </button>
                 <div>

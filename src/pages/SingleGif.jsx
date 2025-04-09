@@ -9,9 +9,10 @@ import {
 } from "react-icons/hi2";
 
 import { HiOutlineExternalLink } from "react-icons/hi";
-import { FaPaperPlane } from "react-icons/fa6";
+import { LuLink } from "react-icons/lu";
 import { IoCodeSlashSharp } from "react-icons/io5";
 import SingleGifSkeleton from "../component/SingleGifSkeleton";
+import {toast} from 'react-toastify'
 const SingleGif = () => {
   const contentType = ["gifs", "stickers", "texts"];
 
@@ -22,10 +23,29 @@ const SingleGif = () => {
   const [loading,setLoading] = useState(false)
   const { gipfyFetch,favorites,addToFav } = GifUseContext();
 
-  const shareGif=()=>{
-
+  const copyUrl=async ()=>{
+    try {
+      if (gif?.url) {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Link copied to clipboard!");
+      }
+    } catch (err) {
+      // console.error("Failed to copy:", err);
+      alert("Failed to copy link");
+    }
+    
   }
-  const embadedGif = ()=>{
+  const embadedGif =async ()=>{
+    try{
+    if (gif?.id) {
+      const embedCode = `<iframe src="https://giphy.com/embed/${gif.id}" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>`;      
+      await navigator.clipboard.writeText(embedCode);
+      alert("Embed code copied to clipboard!");
+    }
+  } catch (err) {
+    console.error("Failed to copy embed code:", err);
+    alert("Failed to copy embed code");
+  }
 
   }
 
@@ -50,7 +70,7 @@ const SingleGif = () => {
     setLoading(false)
   }, [type, slug ]);
 
-  console.log(gif);
+
 
 
   
@@ -132,10 +152,15 @@ const SingleGif = () => {
                 <div className="font-bold">{gif?.user?.display_name}</div>
                 <div className="">{gif?.user?.username}</div>
               </div>
-              <button className="ml-auto" 
-              // onClick={shareGif}
-              >
-                <FaPaperPlane size={25} />
+              <button className="ml-auto" onClick={copyUrl}>
+                <LuLink size={25} />
+              </button>
+              
+              <button className="ml-auto" onClick={()=>addToFav(gif.id)}>
+              <HiMiniHeart size={30} className={`${favorites.includes(gif.id) ? 'text-red-500': ''}`}/>
+              </button>
+              <button className="ml-auto" onClick={embadedGif}>
+                <IoCodeSlashSharp size={25} />
               </button>
             </div>
           </div>
@@ -150,10 +175,11 @@ const SingleGif = () => {
             </button>
 
             <button
-            //  onClick={shareGif} 
+             onClick={copyUrl} 
              className="flex gap-5 items-center font-bold text-lg">
-              <FaPaperPlane size={25}/>
-              Share
+              <LuLink size={25} />
+
+              Copy
             </button>
 
             <button className="flex gap-5 items-center font-bold text-lg" onClick={embadedGif}>
@@ -179,3 +205,6 @@ const SingleGif = () => {
 };
 
 export default SingleGif;
+
+
+

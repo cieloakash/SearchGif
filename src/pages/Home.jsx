@@ -27,7 +27,6 @@ const Home = () => {
   const handleScroll= ()=>{
     if(document.body.scrollHeight -500 < window.scrollY + window.innerHeight){
       setlimit((prev)=>prev+10)
-      console.log('\x1b[33m%s\x1b[0m', limit);
       
       setLoading(true)
     }
@@ -52,7 +51,7 @@ const Home = () => {
       setPage((prevPage) => prevPage + 1);
     }
   }, [loading]);
-  console.log(gifs);
+
   
   return (
     <div className='min-h-screen'>
